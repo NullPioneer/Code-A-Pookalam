@@ -1,1 +1,197 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pookkalam</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #faf3e0;
+      margin: 0;
+    }
+
+    .pookkalam {
+      position: relative;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: #2e7d32; /* green outer base */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Petal base */
+    .petal {
+      position: absolute;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      transform-origin: center bottom;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.25);
+    }
+    .outer { width: 240px; height: 220px; }
+    .middle { width: 180px; height: 150px; }
+    .inner { width: 130px; height: 110px; }
+    .tiny  { width: 70px; height: 65px; }
+    .mini-inner { width: 50px; height: 45px; }
+
+    /* Leaf */
+    .leaf {
+      position: absolute;
+      width: 70px;
+      height: 140px;
+      background: linear-gradient(#1b5e20, #4caf50);
+      clip-path: ellipse(50% 70% at 50% 50%);
+      transform-origin: center center;
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.4);
+      z-index: 0;
+    }
+
+    /* Lotus petals (small) */
+    .lotus-petal {
+      position: absolute;
+      width: 40px;
+      height: 55px;
+      background: radial-gradient(circle at center, #f48fb1 20%, #ad1457 90%);
+      border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+      transform-origin: center bottom;
+      z-index: 15;
+    }
+
+    /* Red inner fill between lotus petals */
+    .lotus-center {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: red;
+      border-radius: 50%;
+      z-index: 14;
+    }
+
+    /* Decorative thin rings */
+    .ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 6px solid;
+    }
+    .ring.yellow { border-color: #ffeb3b; width: 220px; height: 220px; }
+    .ring.orange { border-color: #ff9800; width: 160px; height: 160px; }
+    .ring.pink   { border-color: #e91e63; width: 100px; height: 100px; }
+  </style>
+</head>
+<body>
+  <div class="pookkalam">
+
+    <script>
+      const pookkalam = document.currentScript.parentElement;
+
+      // ✅ Extra outermost leaves (outer circumference)
+      for (let i = 0; i < 80; i++) {
+        const leaf = document.createElement("div");
+        leaf.className = "leaf";
+        const angle = (360/80) * i;
+        leaf.style.left = "50%";
+        leaf.style.top = "50%";
+        leaf.style.transform = `translate(-50%, -50%) rotate(${angle}deg) translateY(-390px)`;
+        pookkalam.appendChild(leaf);
+      }
+
+      // Bright festive outer petals
+      const colorsOuter = ["#ff1744","#ffea00","#ff6f00","#d500f9"]; // red, yellow, orange, violet
+      for (let i=0; i<16; i++) {
+        const petal = document.createElement("div");
+        petal.className = "petal outer";
+        petal.style.background = colorsOuter[i % colorsOuter.length];
+        const angle = (360/16)*i;
+        petal.style.left = "50%";
+        petal.style.top = "50%";
+        petal.style.transform = `translate(-50%, -100%) rotate(${angle}deg) translateY(-270px)`;
+        pookkalam.appendChild(petal);
+      }
+
+      // Middle petals (12) – cream & pink
+      const colorsMiddle = ["#f8e8d0","#ff80ab"]; // cream & pink
+      for (let i=0; i<12; i++) {
+        const petal = document.createElement("div");
+        petal.className = "petal middle";
+        petal.style.background = colorsMiddle[i % 2];
+        const angle = (360/12)*i;
+        petal.style.left = "50%";
+        petal.style.top = "50%";
+        petal.style.transform = `translate(-50%, -100%) rotate(${angle}deg) translateY(-185px)`;
+        pookkalam.appendChild(petal);
+      }
+
+      // Inner petals (18 tight)
+      const colorsInner = ["#ff1744","#ffea00","#ff6f00"];
+      for (let i=0; i<18; i++) {
+        const petal = document.createElement("div");
+        petal.className = "petal inner";
+        petal.style.background = colorsInner[i % colorsInner.length];
+        const angle = (360/18)*i;
+        petal.style.left = "50%";
+        petal.style.top = "50%";
+        petal.style.transform = `translate(-50%, -100%) rotate(${angle}deg) translateY(-125px)`;
+        pookkalam.appendChild(petal);
+      }
+
+      // Mini inner petals (violet/red/magenta)
+      const miniColors = ["#d500f9","#ff1744","#f50057"];
+      for (let i=0; i<12; i++) {
+        const petal = document.createElement("div");
+        petal.className = "petal mini-inner";
+        petal.style.background = miniColors[i % miniColors.length];
+        const angle = (360/12)*i;
+        petal.style.left = "50%";
+        petal.style.top = "50%";
+        petal.style.transform = `translate(-50%, -100%) rotate(${angle}deg) translateY(-85px)`;
+        pookkalam.appendChild(petal);
+      }
+
+      // Tiny inner petals (green & yellow)
+      const tinyColors = ["#4caf50","#ffeb3b"];
+      for (let i=0; i<12; i++) {
+        const petal = document.createElement("div");
+        petal.className = "petal tiny";
+        petal.style.background = tinyColors[i % 2];
+        const angle = (360/12)*i;
+        petal.style.left = "50%";
+        petal.style.top = "50%";
+        petal.style.transform = `translate(-50%, -100%) rotate(${angle}deg) translateY(-70px)`;
+        pookkalam.appendChild(petal);
+      }
+
+      // ✅ Small lotus petals inside innermost circle
+      const lotusLayers = [8, 6];
+      lotusLayers.forEach((count, idx) => {
+        for (let i = 0; i < count; i++) {
+          const petal = document.createElement("div");
+          petal.className = "lotus-petal";
+          const angle = (360/count) * i;
+          petal.style.left = "50%";
+          petal.style.top = "50%";
+          petal.style.transform = `translate(-50%, -100%) rotate(${angle}deg) translateY(-${25 - idx*5}px)`;
+          pookkalam.appendChild(petal);
+        }
+      });
+
+      // ✅ Red fill inside lotus
+      const lotusCenter = document.createElement("div");
+      lotusCenter.className = "lotus-center";
+      lotusCenter.style.left = "50%";
+      lotusCenter.style.top = "50%";
+      lotusCenter.style.transform = "translate(-50%, -50%)";
+      pookkalam.appendChild(lotusCenter);
+    </script>
+
+    <!-- Decorative rings -->
+    <div class="ring yellow"></div>
+    <div class="ring orange"></div>
+    <div class="ring pink"></div>
+  </div>
+</body>
+</html>
